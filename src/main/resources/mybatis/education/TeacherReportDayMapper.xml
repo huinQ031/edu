@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ztd.education.mapper.TeacherReportDayMapper">
+
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMapVO" type="com.ztd.education.vo.TeacherReportDayVO">
+        <id column="id" property="id"/>
+        <result column="user_id" property="userId"/>
+        <result column="teacher_name" property="teacherName"/>
+        <result column="course_id" property="courseId"/>
+        <result column="course_name" property="courseName"/>
+        <result column="student_num" property="studentNum"/>
+        <result column="current_student_num" property="currentStudentNum"/>
+        <result column="course_stage" property="courseStage"/>
+        <result column="report_content" property="reportContent"/>
+        <result column="student_situation" property="studentSituation"/>
+        <result column="report_date" property="reportDate"/>
+        <result column="create_time" property="createTime"/>
+        <result column="remark" property="remark"/>
+        <result column="course_type_code" property="courseTypeCode"/>
+        <result column="student_num" property="studentNum"/>
+        <result column="begin_date" property="beginDate"/>
+        <result column="plan_end_date" property="planEndDate"/>
+        <result column="end_date" property="endDate"/>
+        <result column="status" property="status"/>
+    </resultMap>
+
+    <select id="selectTeacherReportDay" resultMap="BaseResultMapVO"
+            parameterType="com.ztd.education.vo.TeacherReportDayVO">
+        SELECT
+        t1.id,
+        t1.user_id,
+        t3.name teacher_name,
+        t1.course_id,
+        t2.course_name,
+        t2.student_num,
+        t1.student_num current_student_num,
+        t1.course_stage,
+        t1.report_content,
+        t1.student_situation,
+        t1.report_date,
+        t1.create_time,
+        t2.course_type_code,
+        t2.student_num,
+        t2.begin_date,
+        t2.plan_end_date,
+        t2.end_date,
+        t2.status,
+        t1.remark
+        FROM
+        edu_teacher_report_day t1
+        LEFT JOIN edu_course t2 ON t2.id = t1.course_id
+        LEFT JOIN sys_user t3 ON t3.user_id = t1.user_id
+        <where>
+            <if test="id !=null and id !='' ">
+                AND t1.id=#{id}
+            </if>
+            <if test="userId !=null and userId !='' ">
+                AND t1.user_id=#{userId}
+            </if>
+            <if test="reportDate!=null and reportDate!='' ">
+                AND t1.report_date = #{reportDate}
+            </if>
+        </where>
+        ORDER BY t1.report_date DESC
+    </select>
+
+
+    <select id="selectTeacherReportDayHistory" resultMap="BaseResultMapVO"
+            parameterType="com.ztd.education.vo.TeacherReportDayVO">
+        SELECT
+        t1.id,
+        t1.user_id,
+        t3.name teacher_name,
+        t1.course_id,
+        t2.course_name,
+        t2.student_num,
+        t1.student_num current_student_num,
+        t1.course_stage,
+        t1.report_content,
+        t1.student_situation,
+        t1.report_date,
+        t1.create_time,
+        t2.course_type_code,
+        t2.student_num,
+        t2.begin_date,
+        t2.plan_end_date,
+        t2.end_date,
+        t2.status,
+        t1.remark
+        FROM
+        edu_teacher_report_day t1
+        LEFT JOIN edu_course t2 ON t2.id = t1.course_id
+        LEFT JOIN sys_user t3 ON t3.user_id = t1.user_id
+        <where>
+            <if test="id !=null and id !='' ">
+                AND t1.id=#{id}
+            </if>
+            <if test="userId !=null and userId !='' ">
+                AND t1.user_id=#{userId}
+            </if>
+            <if test="reportDate!=null and reportDate!='' ">
+                AND t1.report_date = #{reportDate}
+            </if>
+        </where>
+        ORDER BY t1.report_date DESC
+    </select>
+</mapper>
