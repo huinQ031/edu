@@ -6,7 +6,7 @@ import org.springframework.stereotype.Controller;
 @Controller
 public class UserLogin {
     public Object ok(){
-        return "哈哈哈";
+        return "哈哈";
 
     }
 }
